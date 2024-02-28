@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Duration Calculator</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .container { padding-top: 20px; }
+        h2 { padding-bottom: 10px; }
+        .form-inline { margin-bottom: 20px; }
+        .form-inline .form-group { margin-right: 10px; }
+        table { margin-top: 20px; transition: transform 0.5s ease; }
+        th { position: sticky; top: 0; background-color: #fff; }
+        .fade-in { animation: fadeIn 1.5s; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .description { margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container" data-aos="fade-up">
+        <h2>Project Duration Calculator</h2>
+        <form class="form-inline" onsubmit="addTask(); return false;" data-aos="fade-up" data-aos-delay="100">
+            <div class="form-group">
+                <input type="text" class="form-control" id="taskId" placeholder="Task ID" required>
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control" id="duration" placeholder="Duration" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="dependencies" placeholder="Dependencies">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Task</button>
+        </form>
+        <button onclick="calculate()" class="btn btn-success" data-aos="fade-up" data-aos-delay="200">Calculate Project Duration</button>
+
+        <div class="results mt-5" data-aos="fade-up" data-aos-delay="300">
+            <h3>Tasks</h3>
+            <table class="table table-striped" id="tasksTable">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Task ID</th>
+                        <th>Duration</th>
+                        <th>Dependencies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <h3>Calculation Results</h3>
+            <table class="table table-striped" id="resultsTable">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Task ID</th>
+                        <th>Earliest Start</th>
+                        <th>Latest Start</th>
+                        <th>Time Reserve</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="description" data-aos="fade-up" data-aos-delay="400">
+            <h3>How It Works</h3>
+            <p>This tool calculates the project duration based on the tasks you enter, their durations, and dependencies. Here's a brief overview of the data structures and algorithms used:</p>
+            <ul>
+                <li><strong>Tasks:</strong> Represented by a JavaScript object with properties for ID, duration, dependencies, earliest start, latest start, and time reserve.</li>
+                <li><strong>Dependencies:</strong> A list of task IDs that the current task depends on. The task can only start once all its dependencies have finished.</li>
+                <li><strong>Calculation Algorithm:</strong> The algorithm first calculates the earliest start and finish times for each task based on its dependencies. Then, it calculates the latest start and finish times to determine the slack or time reserve for each task. This helps in identifying critical path tasks that cannot be delayed without affecting the overall project duration.</li>
+            </ul>
+            <p>By entering the tasks, durations, and dependencies, the tool visualizes the project timeline and highlights the flexibility you have with non-critical tasks.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
